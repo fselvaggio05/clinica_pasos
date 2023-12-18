@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -17,22 +18,24 @@ public class LoginServlet extends HttpServlet {
 
     private UsuarioService usServ;
 
-
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-       Usuario us = usServ.buscarUsuario(req.getParameter("mail"),req.getParameter("pass"));
+        UsuarioService usServ = new UsuarioService();
+        Usuario us = usServ.buscarUsuario(req.getParameter("mail"),req.getParameter("pass"));
 
-        if(us==null)
+        if(us.getDni()==0)
         {
-            req.setAttribute("mensaje", "Email o password incorrectos");
-            req.getRequestDispatcher("index.jsp").forward(req,resp);
+            req.setAttribute("error", "Email o password incorrectos");
+            req.getRequestDispatcher("/index.jsp").forward(req,resp);
         }
 
         else
         {
-            resp.sendRedirect("/menu_final.html");
+
+            HttpSession session = req.getSession();
+            session.setAttribute("usuario", us);
+            resp.sendRedirect(req.getContextPath() + "/menu_final.jsp");
         }
     }
 

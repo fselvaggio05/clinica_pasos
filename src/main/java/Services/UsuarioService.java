@@ -21,4 +21,15 @@ public class UsuarioService {
 
 
     }
+
+    public void crearUsuario(Usuario us, String tipoUsuario){
+
+        switch (tipoUsuario) {
+            case 1:
+                usRep.guardarUsuario();
+        }
+
+
+
+    }
 }

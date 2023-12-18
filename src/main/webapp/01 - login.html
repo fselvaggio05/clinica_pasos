@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,48 +8,38 @@
     <title>Document</title>
 </head>
 <body>
-
+    
 <section class="" style="background-color: #c3e3cd;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-
+  
               <h3 class="mb-5">Bienvenido</h3>
-
-              <form action="LoginServlet" method="POST">
+  
               <div class="form-outline mb-3">
-                <input type="email" name="mail" class="form-control form-control-lg" placeholder="Usuario@mail.com" />
-
+                <input type="email" name="user" class="form-control form-control-lg" placeholder="Usuario@mail.com" />
+                
               </div>
-
+  
               <div class="form-outline mb-3">
-                <input type="password" name="pass" class="form-control form-control-lg" placeholder="Clave"/>
-
+                <input type="password" name="pass" class="form-control form-control-lg" placeholder="Contraseña"/>
+                
               </div>
-
-
+           
+  
               <!-- Checkbox -->
               <div>
                 <input class="mr-1 form-check-input" type="checkbox" value="" id="defaultCheck1">Recordar usuario
-
+                
               </div>
-
+                
               <button class="btn btn-primary btn-lg btn-block" type="submit">Acceder</button>
-
+  
               <hr class="my-4">
-                  <% if (request.getAttribute("error")!=null)
-                  {
-                      out.println("<div class='text-danger'>");
-                      out.println(request.getAttribute("error"));
-                      out.println("</div>");
-                  }
-                  %>
-            </form>
-
-
-
+  
+  
             </div>
           </div>
         </div>

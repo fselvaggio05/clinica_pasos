@@ -4,6 +4,21 @@ import java.util.Date;
 
 public class Usuario {
     private int dni;
+    private String apellido;
+
+    private String nombre;
+    private Date fecha_nacimiento;
+
+
+    //la variable genero podria declararse como enum
+   // ESTA VARIABLE DEBE SER UN ENUM private Enum genero;
+    private String genero;
+
+    private String telefono;
+
+    private String email;
+    private String clave;
+
 
     public String getApellido() {
         return apellido;
@@ -28,10 +43,10 @@ public class Usuario {
     public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
-
-    public Enum getGenero() {
+/*
+   // public Enum getGenero() {
         return genero;
-    }
+    }*/
 
     public void setGenero(Enum genero) {
         this.genero = genero;
@@ -61,19 +76,6 @@ public class Usuario {
         this.clave = clave;
     }
 
-    private String apellido;
-
-    private String nombre;
-    private Date fecha_nacimiento;
-
-    //la variable genero podria declararse como enum
-    private Enum genero;
-
-    private String telefono;
-
-    private String email;
-    private String clave;
-
 
     public int getDni() {
         return dni;
@@ -81,6 +83,15 @@ public class Usuario {
 
     public void setDni(int dni) {
         this.dni = dni;
+    }
+
+    public void setGenero(String genero) {
+        Genero = genero;
+    }
+
+    public String getGenero()
+    {
+        return genero;
     }
 
     public Usuario() {
