@@ -1,6 +1,10 @@
 package Controllers;
 
+import Entities.Paciente;
+import Entities.Profesional;
 import Entities.Usuario;
+import Services.PacienteService;
+import Services.ProfesionalService;
 import Services.UsuarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,43 +13,66 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WebServlet(name = "/AltaUsuarioServlet")
+@WebServlet("/AltaUsuarioServlet")
 
 public class AltaUsuarioServlet extends HttpServlet {
 
     public UsuarioService usServ;
+
+    public PacienteService pacServ;
+
+    public ProfesionalService profServ;
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         UsuarioService usServ = new UsuarioService();
-        Usuario us = new Usuario();
-        /*req.getParameter("tipoDoc")*/
-        us.setDni(Integer.parseInt(req.getParameter("dni")));
-        us.setNombre(req.getParameter("nombre"));
-        us.setApellido(req.getParameter("apellido"));
-        us.setEmail(req.getParameter("email"));
+        Integer opcUs = Integer.parseInt(req.getParameter("tipoUsuario"));
 
-        String fecha_nac = req.getParameter("fechaNac");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        //TODO AGREGAR ENVIO DE MAIL LUEGO DE LA CREACION DEL PACIENTE Y PROFESIONAL
 
-        us.setFecha_nacimiento(sdf.parse(fecha_nac));
-        us.setTelefono(req.getParameter("telefono"));
-        us.setClave(req.getParameter("clave"));
-        us.setGenero(req.getParameter("genero"));
-        us.setClave(req.getParameter("clave"));
-        us.setGenero(req.getParameter("genero"));
+        switch(opcUs) {
+            case 1: {
+                try {
+                    Usuario us = new Usuario(Integer.parseInt(req.getParameter("dni")), req.getParameter("nombre"), req.getParameter("apellido"), req.getParameter("email"), req.getParameter("fechaNac"), req.getParameter("telefono"), req.getParameter("clave"), req.getParameter("genero"));
+                    usServ.insertarUsuario(us);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
 
+            case 2: { //TODO REVISAR MATRICULA QUE LLEGA EN NULL
+                try {
+                    String matricula = req.getParameter("matricula");
+                    Profesional prof = new Profesional(Integer.parseInt(req.getParameter("dni")), req.getParameter("nombre"), req.getParameter("apellido"), req.getParameter("email"), req.getParameter("fechaNac"), req.getParameter("telefono"), req.getParameter("clave"), req.getParameter("genero") ,req.getParameter("matricula"));
+                    ProfesionalService profServ = new ProfesionalService();
+                    profServ.insertarProfesional(prof);
 
-     /*
-        req.getParameter("obraSocial");
-        req.getParameter("nroAfiliado");*/
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            }
 
-        usServ.crearUsuario(us, req.getParameter("tipoUsuario"));
+            case 3:{
+                try {
+                    Integer obraSocial = Integer.parseInt(req.getParameter("obraSocial"));
+                    Paciente pac = new Paciente(Integer.parseInt(req.getParameter("dni")), req.getParameter("nombre"), req.getParameter("apellido"), req.getParameter("email"), req.getParameter("fechaNac"), req.getParameter("telefono"), req.getParameter("clave"), req.getParameter("genero"), obraSocial , req.getParameter("nroAfiliado"));
+                    PacienteService pacServ = new PacienteService();
+                    pacServ.insertarPaciente(pac);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        }
+
 
 
     }

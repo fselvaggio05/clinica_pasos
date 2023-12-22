@@ -1,9 +1,11 @@
 package Entities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Usuario {
-    private int dni;
+    private Integer dni;
     private String apellido;
 
     private String nombre;
@@ -18,6 +20,20 @@ public class Usuario {
 
     private String email;
     private String clave;
+
+    public Usuario(Integer dni, String nombre, String apellido, String email, String fechaNac, String telefono, String clave, String genero) throws ParseException {
+        this.dni=dni;
+        this.nombre = nombre;
+        this.apellido=apellido;
+        this.email=email;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        Date fechaNacimiento = sdf.parse(fechaNac);
+        this.fecha_nacimiento=fechaNacimiento;
+        this.telefono=telefono;
+        this.genero=genero;
+        this.clave=clave;
+
+    }
 
 
     public String getApellido() {
@@ -48,10 +64,10 @@ public class Usuario {
         return genero;
     }*/
 
-    public void setGenero(Enum genero) {
+   /* public void setGenero(Enum genero) {
         this.genero = genero;
     }
-
+*/
     public String getTelefono() {
         return telefono;
     }
@@ -77,16 +93,16 @@ public class Usuario {
     }
 
 
-    public int getDni() {
+    public Integer getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
 
     public void setGenero(String genero) {
-        Genero = genero;
+        this.genero = genero;
     }
 
     public String getGenero()

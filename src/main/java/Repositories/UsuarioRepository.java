@@ -3,8 +3,10 @@ package Repositories;
 import ConexionDB.FactoryConnection;
 import Entities.Usuario;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 
 
 public class UsuarioRepository {
@@ -28,7 +30,7 @@ public class UsuarioRepository {
             if (rs != null && rs.next()) {
                 us.setApellido(rs.getString("apellido"));
                 us.setNombre(rs.getString("nombre"));
-                us.setDni(rs.getInt("dni"));
+                us.setDni((rs.getInt("dni")));
 
             }
 
@@ -61,20 +63,20 @@ public class UsuarioRepository {
 
 
 
-    public void guardarUsuario(Usuario us){
+    public void insertarUsuario(Usuario us) {
 
-        try {
-            stmt = FactoryConnection.getInstancia().getConn().prepareStatement("INSERT INTO usuario (dni,apellido, nombre, telefono, clave, fecha_nacimiento, genero, email) VALUES (?,?,?,?,?,?,?,?)");
-            stmt.setString(1, dni);
-            stmt.setString(2, apellido);
-            stmt.setString(3, nombre);
-            stmt.setString(4, telefono);
-            stmt.setString(5,clave);
-            stmt.setString(6, fechaNac);
-            stmt.setString(7,genero);
-            stmt.setString(8,email);
-            rs = stmt.executeQuery();
-
+        try
+        {
+            stmt = FactoryConnection.getInstancia().getConn().prepareStatement("INSERT INTO usuario (dni,apellido, nombre, telefono, clave, fecha_nacimiento, genero, email) VALUES (?,?,?,?,?,?,?,?)"); /**/
+            stmt.setInt(1,us.getDni());
+            stmt.setString(2, us.getApellido());
+            stmt.setString(3, us.getNombre());
+            stmt.setString(4, us.getTelefono());
+            stmt.setString(5, us.getClave());
+            stmt.setDate(6, new java.sql.Date(us.getFecha_nacimiento().getTime()));
+            stmt.setString(7, us.getGenero());
+            stmt.setString(8, us.getEmail());
+            stmt.executeUpdate();
         }
 
         catch (Exception e) {
@@ -94,10 +96,6 @@ public class UsuarioRepository {
 
             FactoryConnection.getInstancia().releaseConn(); //reveer esto, no me convene
 
-
-
-
         }
     }
-
 }
