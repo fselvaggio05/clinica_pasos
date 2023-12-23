@@ -45,6 +45,7 @@
                     <tbody>
 
                     <tr>
+                        <jsp:useBean id="practicas" scope="request" type="java.util.List<Entities.Practica>"/>
                         <c:forEach var="pract" items="${practicas}">
                             <td><c:out value="${pract}"></c:out></td>
                             <td><c:out value="${pract.descripcion}"></c:out></td>

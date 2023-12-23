@@ -22,7 +22,7 @@ public class AltaPracticaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Practica> practicas = prServ.getAll();
         req.setAttribute("practicas", practicas);
-        req.getRequestDispatcher("/altaPractica.jsp").forward(req,resp);
+        req.getRequestDispatcher("altaPractica.jsp").forward(req,resp);
 
 
     }
